@@ -1,19 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-export default function App() {
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import LoginScreen from './screens/LoginScreen';
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>
-        สวัสดี Thatchanun Vijarn
-      </Text>
-    </View>
+    <SafeAreaProvider>
+      <SafeAreaView style={{ flex: 1 }}>
+        <LoginScreen />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
-}
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})
+};
+
+export default App;
