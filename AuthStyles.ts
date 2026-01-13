@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5',
   },
   title: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: 'bold',
     marginBottom: 20,
   },
@@ -18,9 +18,9 @@ const styles = StyleSheet.create({
     padding: 15,
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 8,
+    borderRadius: 12,
     marginBottom: 15,
-    backgroundColor: '#fff',
+    backgroundColor: '#fcfcfcff',
   },
   button: {
     backgroundColor: '#007BFF',
