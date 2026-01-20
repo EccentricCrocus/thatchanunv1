@@ -4,7 +4,7 @@ import styles from '../AuthStyles';
 const ListMember = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>List Members</Text>
+      <Text style={styles.title}>Ey boss</Text>
     </View>
   );
 };

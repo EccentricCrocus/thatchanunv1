@@ -1,11 +1,13 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import styles from '../AuthStyles';
-const Profile = () => {
+const BruhButton = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Oi Hughie</Text>
+      <TouchableOpacity style={styles.button}>
+        <Text style={styles.buttonText}>Bruh</Text>
+        </TouchableOpacity>
     </View>
   );
 };
-export default Profile;
+export default BruhButton;
