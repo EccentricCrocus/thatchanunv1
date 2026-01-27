@@ -3,7 +3,6 @@ import React, { useContext, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import styles from '../AuthStyles';
 import { AuthContext } from '../context';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = ({ navigation }: { navigation: any }) => {
   const { setSignedIn } = useContext(AuthContext);
@@ -18,12 +17,11 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
     }
 
     // 🔐 ตัวอย่าง logic (ภายหลังเปลี่ยนเป็น API / Firebase ได้)
-    const ok =
-      email_mem.trim() === 'std.67122710110@ubru.ac.th' &&
-      password_mem === '11112548';
+    const ok = email_mem.trim() === 'RetinaDiabolic' && password_mem === '69420';
 
     if (ok) {
-      setSignedIn(email_mem.trim());
+      await setSignedIn(email_mem.trim()); // ✅ จะ persist AsyncStorage ใน context แล้ว
+      console.log('User logged in:', email_mem.trim());
     } else {
       Alert.alert('Login Failed', 'Invalid email or password');
     }
