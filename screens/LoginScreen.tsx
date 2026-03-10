@@ -3,6 +3,8 @@ import React, { useContext, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import styles from '../AuthStyles';
 import { AuthContext } from '../context';
+import axios from 'axios';
+import { BASE_API_URL } from './globals';
 
 const LoginScreen = ({ navigation }: { navigation: any }) => {
   const { setSignedIn } = useContext(AuthContext);
@@ -16,15 +18,23 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
       return;
     }
 
-    // 🔐 ตัวอย่าง logic (ภายหลังเปลี่ยนเป็น API / Firebase ได้)
-    const ok = email_mem.trim() === 'RetinaDiabolic' && password_mem === '69420';
-
-    if (ok) {
-      await setSignedIn(email_mem.trim()); // ✅ จะ persist AsyncStorage ใน context แล้ว
-      console.log('User logged in:', email_mem.trim());
-    } else {
-      Alert.alert('Login Failed', 'Invalid email or password');
+    try {
+      const response = await axios.post(BASE_API_URL + '/login', {
+        email_mem: email_mem.trim(),
+        password_mem: password_mem.trim(),
+      });
+      if (response.status === 200) {
+        console.log('Login successful:', response.data.user);
+        await setSignedIn(email_mem.trim()); 
+        console.log('User logged in:', email_mem.trim());
+      }else{
+        console.log('Login failed:');
+        Alert.alert('Login Failed', 'Invalid email or password');
+      }
+    } catch (error) {
+      Alert.alert('Login Failed', 'Server Error');
     }
+
   };
 
   return (
@@ -52,7 +62,9 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.navigate('ForgotPasswordScreen')}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('ForgotPasswordScreen')}
+      >
         <Text style={styles.link}>Forgot Password?</Text>
       </TouchableOpacity>
 

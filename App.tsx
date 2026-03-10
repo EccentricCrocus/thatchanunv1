@@ -5,17 +5,16 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
-
 import ListMember from './screens/ListMember';
 import Profile from './screens/Profile';
 import About from './screens/About';
 import BruhButton from './screens/BruhButton';
-
 import { AuthProvider, AuthContext } from './context';
+import AddMember from './screens/AddMember';
+import EditMember from './screens/EditMember';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -23,12 +22,12 @@ const Tab = createBottomTabNavigator();
 function HomeTabs() {
   return (
     <Tab.Navigator
-      initialRouteName="ListMember"
+      initialRouteName="MemStackScreen"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName: string = 'home-outline';
 
-          if (route.name === 'ListMember') {
+          if (route.name === 'MemStackScreen') {
             iconName = focused ? 'pizza' : 'pizza-outline';
           } else if (route.name === 'Profile') {
             iconName = focused ? 'people-circle' : 'person-circle-outline';
@@ -44,12 +43,52 @@ function HomeTabs() {
          tabBarActiveTintColor: '#800020',
         tabBarInactiveTintColor: '#3eb489',
       })}
-    >
-      <Tab.Screen name="ListMember" component={ListMember} options={{ title: 'รายการสมาชิก' }} />
-      <Tab.Screen name="Profile" component={Profile} options={{ title: 'โปรไฟล์' }} />
-      <Tab.Screen name="About" component={About} options={{ title: 'ตั้งค่า' }} />
-      <Tab.Screen name="BruhButton" component={BruhButton} options={{ title: 'Bruh' }} />
+   >
+      <Tab.Screen
+        name="MemStackScreen"
+        component={MemStackScreen}
+        options={{ title: 'รายการสมาชิก' }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{ title: 'โปรไฟล์' }}
+      />
+      <Tab.Screen
+        name="About"
+        component={About}
+        options={{ title: 'ตั้งค่า' }}
+      />
     </Tab.Navigator>
+  );
+}
+function MemStackScreen() {
+  return (
+    <Stack.Navigator initialRouteName="ListMember">
+      <Stack.Screen
+        name="ListMember"
+        component={ListMember}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="AddMember"
+        component={AddMember}
+        options={{
+          headerShown: true,
+          title: 'Add Member',
+        }}
+      />
+      <Stack.Screen
+        name="EditMember"
+        component={EditMember}
+        options={{
+          headerShown: true,
+          title: 'Edit Member',
+        }}
+      />
+    </Stack.Navigator>
   );
 }
 
